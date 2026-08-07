@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Enrollments{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Enrollments</h2>
+  <a href="{{ url_for('add_enrollment') }}" class="btn btn-warning">+ Add Enrollment</a>
+</div>
+
+<div class="card p-3">
+<table class="table table-hover align-middle mb-0">
+  <thead>
+    <tr><th>ID</th><th>Student</th><th>Course</th><th>Semester</th><th>Grade</th><th></th></tr>
+  </thead>
+  <tbody>
+    {% for e in enrollments %}
+    <tr>
+      <td>{{ e.enrollment_id }}</td>
+      <td>{{ e.student_name }}</td>
+      <td>{{ e.course_name }}</td>
+      <td>{{ e.semester or "-" }}</td>
+      <td>{{ e.grade or "-" }}</td>
+      <td>
+        <form action="{{ url_for('delete_enrollment', enrollment_id=e.enrollment_id) }}" method="post" class="d-inline"
+              onsubmit="return confirm('Remove this enrollment?');">
+          <button class="btn btn-sm btn-outline-danger">Remove</button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6" class="text-center text-muted">No enrollments yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

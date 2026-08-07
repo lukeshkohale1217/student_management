@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Add Enrollment{% endblock %}
+{% block content %}
+<h2 class="mb-4">Add Enrollment</h2>
+<div class="card p-4" style="max-width:600px;">
+<form method="post">
+  <div class="mb-3">
+    <label class="form-label">Student</label>
+    <select name="student_id" class="form-select" required>
+      <option value="" selected disabled>Select a student</option>
+      {% for s in students %}
+      <option value="{{ s.student_id }}">{{ s.first_name }} {{ s.last_name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Course</label>
+    <select name="course_id" class="form-select" required>
+      <option value="" selected disabled>Select a course</option>
+      {% for c in courses %}
+      <option value="{{ c.course_id }}">{{ c.course_code }} — {{ c.course_name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Semester</label>
+    <input type="text" name="semester" class="form-control" placeholder="e.g. Fall 2026">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Grade (optional)</label>
+    <input type="text" name="grade" class="form-control" placeholder="e.g. A, B+, leave blank if in progress">
+  </div>
+  <button type="submit" class="btn btn-warning">Save</button>
+  <a href="{{ url_for('list_enrollments') }}" class="btn btn-outline-secondary">Cancel</a>
+</form>
+</div>
+{% endblock %}
